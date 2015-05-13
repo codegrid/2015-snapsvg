@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<svg width="512" height="256">
+
+  <path id="myPath" d="M100,100 C125,0 225,0 250,100 S375,200 400,100" fill="none" stroke="#0066ff" />
+
+</svg>
+
+<div>パスの全長は<span id="log"></span></div>
+
+<script>
+var $myPath = document.querySelector( '#myPath' );
+var pathLength = $myPath.getTotalLength();
+
+var log = document.querySelector( '#log' );
+log.innerHTML = pathLength;
+</script>
+
+</body>
+</html>

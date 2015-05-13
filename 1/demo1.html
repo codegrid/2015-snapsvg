@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+<style >
+body {
+  background: #ffae44 linear-gradient( 90deg, rgba(255,255,255,0) 50%, rgba(255,255,255,.4) 50% );
+  background-size: 40px 100%;
+}
+svg{   display: block;
+}
+</style>
+</head>
+<body>
+
+<button>Animate it!</button>
+
+<svg class="pathAnim1" width="512" height="128" viewBox="0 0 512 128">
+  <path
+    d="M59.3,19.5c-24.1,0-39.8,20.5-39.8,39.8c0,19.3,11.5,39.6,38,39.6c26.5,0,35.3-40.3,70.4-40.3s56.2,15.5,73.3,23.9c24.3,11.9,48.5,16.5,62.5-6.7c7.9-13.2,2.1-31.9-9.8-39.2c-16-9.8-35.7-2.2-45.4,11.9c-11.4,16.5,4.7,38.1,16.5,44.9c14.4,8.3,67.9,25,88.6,25c21.7,0,60.1-49.4,93.2-67.8c15.6-8.7,56.8-13.9,89.3,12.4"
+    fill="none"
+    stroke="#ffffff"
+    strokeMiterLimit="10"
+    stroke-width="4"
+    stroke-dasharray="12, 6"
+    stroke-dashoffset="100"/>
+  <polyline points="0,30 15,0 30,30" fill="#ffffff"></polyline>
+</svg>
+
+
+<svg class="pathAnim2" width="512" height="300" viewBox="0 0 512 300">
+  <path
+    d="M12.5,130c0,0,46.5-60.5,172-60.5S333,151,402.5,151s86-50.5,86-50.5"
+    fill="none"
+    stroke="#ffffff"
+    stroke-opacity="0.5"
+    strokeMiterLimit="10"
+    stroke-width="4"
+    stroke-dasharray="12, 6"
+    stroke-dashoffset="100"/>
+  <image xlink:href="truck.svg" width="128" height="128">
+</svg>
+
+
+
+<script src="snap.svg-min.js"></script>
+<script>
+// see http://snapsvg.io/docs/#Snap.path.getPointAtLength
+
+( function () {
+
+  'use strict';
+
+  var pathAnim   = Snap( '.pathAnim1' );
+  var path       = pathAnim.select( 'path' );
+  var triangle   = pathAnim.select( 'polyline' );
+  var pathLength = path.getTotalLength();
+  var duration   = 5000;
+
+  var animate = function () {
+
+    Snap.animate( 0, 1, function( progress ) {
+
+      var movePoint = path.getPointAtLength( pathLength * progress );
+      path.attr( { 'stroke-dashoffset': pathLength * ( 1 - progress ) } );
+      triangle.transform( 't' + ( movePoint.x - 15 ) + ',' + ( movePoint.y - 15 ) + 'r' + ( movePoint.alpha - 90 ) );
+
+    }, duration, mina.easeinout );
+
+  };
+
+  animate();
+
+  document.querySelector( 'button' ).addEventListener( 'click', animate );
+
+} )();
+
+
+( function () {
+
+  'use strict';
+
+  var pathAnim   = Snap( '.pathAnim2' );
+  var path       = pathAnim.select( 'path' );
+  var triangle   = pathAnim.select( 'image' );
+  var pathLength = path.getTotalLength();
+  var duration   = 5000;
+
+  var animate = function () {
+
+    Snap.animate( 0, 1, function( progress ) {
+
+      var movePoint = path.getPointAtLength( pathLength * progress );
+      path.attr( { 'stroke-dashoffset': pathLength * ( 1 - progress ) } );
+      triangle.transform( 't' + ( movePoint.x - 64 ) + ',' + ( movePoint.y - 64 ) + 'r' + ( movePoint.alpha - 180 ) );
+
+    }, duration, mina.easeinout );
+
+  };
+
+  animate();
+
+  document.querySelector( 'button' ).addEventListener( 'click', animate );
+
+} )();
+</script>
+
+</body>
+</html>
