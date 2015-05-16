@@ -16,7 +16,7 @@ var $circle = document.querySelector( 'circle' );
 
 ( function anim () {
 
-  requestAnimationFrame( anim );
+  window.requestAnimationFrame( anim );
 
   // 現在の cx 属性の値を取得
   var cx = $circle.getAttribute( 'cx' );
