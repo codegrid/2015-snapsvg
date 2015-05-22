@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<svg width="500" height="300">
+	<text>
+		stroke-dashoffsetのアニメーション
+	</text>
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+// textpath要素がない状態で、テキストのバウンディングボックスの大きさを取得する
+// textpath要素に包含してしまうとバウンディングボックスを取得できないので注意
+console.log( Snap( 'text' ).getBBox().width );
+
+// 上記の方法をオンザフライで行う別の方法もある
+// 空の <svg> を作り、その中に text 要素を展開する方法
+var text = Snap().text( 0, 0, 'stroke-dashoffsetのアニメーション' );
+console.log( text.getBBox().width );
+
+</script>
+
+</body>
+</html>

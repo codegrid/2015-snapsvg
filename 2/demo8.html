@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="500" height="300">
+	<text>
+		<textpath class="textpath1" xlink:href="#path1" startOffset="-238.1875">stroke-dashoffsetのアニメーション</textpath>
+	</text>
+	<path id="path1" d="M100,100 C125,0 225,0 250,100 S375,200 400,100" fill="none" stroke="#0066ff"></path>
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var $textpath = Snap( '.textpath1' );
+var $path = Snap( '#path1' );
+
+var pathLength = $path.getTotalLength();
+
+function play () {
+
+  // 開始位置を「-1 * テキストの長さ」にセット
+  $textpath.attr( { startOffset: -238.1875 } );
+
+  // 開始位置を 3 秒かけて 256 にアニメーションする
+  $textpath.animate( {
+    startOffset: pathLength
+  }, 3000 );
+
+};
+
+</script>
+
+</body>
+</html>
