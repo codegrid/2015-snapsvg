@@ -19,7 +19,7 @@
 // textpath要素に包含してしまうとバウンディングボックスを取得できないので注意
 console.log( Snap( 'text' ).getBBox().width );
 
-// 上記の方法をオンザフライで行う別の方法もある
+// 別の方法として、要素をページ内に展開しない方法もある
 // 空の <svg> を作り、その中に text 要素を展開する方法
 var text = Snap().text( 0, 0, 'stroke-dashoffsetのアニメーション' );
 console.log( text.getBBox().width );

@@ -28,7 +28,7 @@ function play () {
   // 開始位置を「-1 * テキストの長さ」にセット
   $textpath.attr( { startOffset: -238.1875 } );
 
-  // 開始位置を 3 秒かけて 256 にアニメーションする
+  // 開始位置を 3 秒かけて、パスの長さ分ずらす
   $textpath.animate( {
     startOffset: pathLength
   }, 3000 );
