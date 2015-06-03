@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="512" height="256">
+
+	<g class="group1" transform="translate(50,50)">
+		<circle cx="60"  cy="80" r="50"></circle>
+		<circle cx="0"   cy="30" r="25"></circle>
+		<circle cx="60"  cy="0"  r="25"></circle>
+		<circle cx="120" cy="30" r="25"></circle>
+	</g>
+
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var $g = Snap( '.group1' );
+var transform = $g.attr( 'transform' );
+
+function play () {
+
+  $g.attr( { transform: transform } );
+
+  $g.animate( {
+    transform: 'translate(200,100) scale(1.2,1.2) '
+  }, 300 );
+
+}
+
+</script>
+</body>
+</html>

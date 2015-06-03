@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="256" height="256">
+	<polyline points="0,128 32,128 32,128 64,128 64,128 96,128 96,128 128,128 128,128 160,128 160,128 192,128 192,128 224,128 224,128 256,128" fill="none" stroke="#000"/>
+</svg>
+
+<script src="snap.svg_dev.js"></script>
+<script>
+
+var $line = Snap( 'polyline' );
+var points1 = $line.attr( 'points' );
+var points2 = '0,128 32,128 32,60 64,60 64,128 96,128 96,90 128,90 128,110 160,110 160,80 192,80 192,100 224,100 224,128 256,128';
+
+function play () {
+
+  $line.attr( { points: points1 } );
+
+  $line.animate( {
+    points: points2
+  }, 1000 );
+
+}
+
+</script>
+</body>
+</html>
