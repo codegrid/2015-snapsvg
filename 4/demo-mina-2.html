@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="512" height="320">
+	<defs>
+	<style>
+	g:nth-child( 2n + 1 ) rect:nth-child( 1 ) { fill: #FFCC80; }
+	g:nth-child( 2n + 1 ) rect:nth-child( 2 ) { fill: #3E2723; }
+	g:nth-child( 2n + 2 ) rect:nth-child( 1 ) { fill: #FFF3E0; }
+	g:nth-child( 2n + 2 ) rect:nth-child( 2 ) { fill: #5D4037; }
+	circle { fill: #AEEA00; }
+	text { fill: #fff; font-family: sans-serif; }
+	</style>
+	</defs>
+
+	<g transform="translate( 0, 0 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">custom easing</text>
+	</g>
+
+</svg>
+
+
+
+<script src="snap.svg.js"></script>
+<script>
+
+var bounceInOut = function ( t ) {
+
+  return t < 0.5
+    ? 0.5 * ( 1.0 - mina.bounce( 1.0 - t * 2.0 ) )
+    : 0.5 * mina.bounce( t * 2.0 - 1.0 ) + 0.5;
+
+}
+
+var $circle = Snap( 'circle' );
+
+function play () {
+
+  $circle.attr( { cx: 70 } );
+  $circle.animate( { cx: 430 }, 2000, bounceInOut );
+
+}
+
+</script>
+</body>
+</html>

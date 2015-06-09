@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+<style >
+body {
+  background: #ffae44 linear-gradient( 90deg, rgba(255,255,255,0) 50%, rgba(255,255,255,.4) 50% );
+  background-size: 40px 100%;
+}
+svg{   display: block;
+}
+</style>
+</head>
+<body>
+
+<button>Animate it!</button>
+
+<svg width="512" height="300" viewBox="0 0 512 300">
+  <path
+    d="M12.5,130c0,0,46.5-60.5,172-60.5S333,151,402.5,151s86-50.5,86-50.5"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="4"/>
+  <image xlink:href="truck.svg" width="128" height="128">
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var $path       = Snap( 'path' );
+var $truck      = Snap( 'image' );
+
+// トラックの大きさの半分を保存しておく
+var width_half  = parseInt( $truck.attr( 'width' )  ) / 2;
+var height_half = parseInt( $truck.attr( 'height' ) ) / 2;
+
+// レールとなるパスの長さを取得
+var pathLength = $path.getTotalLength();
+
+var animate = function () {
+
+  Snap.animate( 0, 1, function( progress ) {
+
+    // progressはアニメーションの進行度を意味する。
+    // 進行度に応じた、パス上の点の座標を取得する
+    // そのためには、「パスの長さ * 進行度」を
+    // getPointAtLength メソッドの引数にすると取得できる
+    var movePoint = $path.getPointAtLength( pathLength * progress );
+
+    // transoform属性で、取得した点の座標分ずらす
+    // これにより、パスの上を走っているように見せることができる
+    // `movePoint.alpha` を使用すれば「瞬間の角度」を取得することもできるが
+    // ここで紹介するのは移動のみの例
+    $truck.attr( {
+      transform: 'translate(' + ( movePoint.x - width_half ) + ',' + ( movePoint.y - height_half ) + ')'
+    } );
+
+  }, 5000 );
+
+};
+
+animate();
+
+document.querySelector( 'button' ).addEventListener( 'click', animate );
+
+</script>
+
+</body>
+</html>

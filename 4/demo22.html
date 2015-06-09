@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+<div><button onclick="isMoving()">アニメーション途中かを判定する</button></div>
+
+<svg width="400" height="60" style="background:#333;">
+
+	<circle  fill="#AEEA00" cx="0" cy="30" r="25"></circle>
+
+</svg>
+
+<script src="snap.svg.js"></script>
+<script>
+var $circle = Snap( 'circle' );
+
+function play () {
+
+  $circle.stop();
+  $circle.attr( { cx: 0 } );
+  $circle.animate( { cx: 400 }, 10000 );
+
+}
+
+function isMoving () {
+
+  var anims = $circle.inAnim();
+  
+  if ( anims.length === 0 ) {
+
+    alert( false );
+
+  } else {
+
+    alert( true );
+
+  }
+
+}
+
+</script>
+</body>
+</html>

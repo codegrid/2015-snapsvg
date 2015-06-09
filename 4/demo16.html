@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="512" height="256">
+
+	<circle  fill="#AEEA00" cx="30" cy="55" r="25"></circle>
+	<rect    fill="#AEEA00"  x="80"  y="30" width="50" height="50"></rect>
+	<polygon fill="#AEEA00" points="150,30 150,80 200,30"></polygon>
+
+</svg>
+
+<script src="snap.svg.js"></script>
+<script>
+var $set = Snap( [
+  Snap( 'circle' ),
+  Snap( 'rect' ),
+  Snap( 'polygon' )
+] );
+var callback = function () {
+
+  alert( 'finished!' );
+
+}
+
+function play () {
+
+  $set.attr( { fill: '#AEEA00' } );
+  $set.animate( 
+    [ { fill: '#304FFE' }, 3000, mina.easein, callback ],
+    [ { fill: '#FF6F00' }, 5000, mina.easein, callback ]
+  );
+
+}
+
+</script>
+</body>
+</html>

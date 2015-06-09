@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">全アニメーションを開始する</button></div>
+<div><button onclick="stop()">全アニメーションを停止する</button></div>
+
+<svg width="512" height="256">
+
+	<rect fill="#AEEA00" x="25"  y="25" width="50" height="50"></rect>
+
+</svg>
+
+<script src="snap.svg.js"></script>
+<script>
+var $rect = Snap( 'rect' );
+
+function play () {
+
+  $rect.attr( {
+    x: 25,
+    y: 25,
+    fill: '#AEEA00'
+  } );
+
+  // 3つの、duration が異なるアニメーションをさせる
+  $rect.animate( { x: 200 }, 3000 );
+  $rect.animate( { y: 200 }, 6000 );
+  $rect.animate( { fill: '#E91E63' }, 9000 );
+
+};
+
+function stop () {
+  
+  // 3つのアニメーションすべてが停止する
+  $rect.stop();
+
+}
+
+</script>
+</body>
+</html>

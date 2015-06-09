@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div><button onclick="play()">アニメーションする</button></div>
+
+<svg width="512" height="320">
+	<defs>
+	<style>
+	g:nth-child( 2n + 1 ) rect:nth-child( 1 ) { fill: #FFCC80; }
+	g:nth-child( 2n + 1 ) rect:nth-child( 2 ) { fill: #3E2723; }
+	g:nth-child( 2n + 2 ) rect:nth-child( 1 ) { fill: #FFF3E0; }
+	g:nth-child( 2n + 2 ) rect:nth-child( 2 ) { fill: #5D4037; }
+	circle { fill: #AEEA00; }
+	text { fill: #fff; font-family: sans-serif; }
+	</style>
+	</defs>
+
+	<g transform="translate( 0, 0 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.linear</text>
+	</g>
+
+	<g transform="translate( 0, 40 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.easein</text>
+	</g>
+
+	<g transform="translate( 0, 80 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.easeout</text>
+	</g>
+
+	<g transform="translate( 0, 120 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.easeinout</text>
+	</g>
+
+	<g transform="translate( 0, 160 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.backin</text>
+	</g>
+
+	<g transform="translate( 0, 200 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.backout</text>
+	</g>
+
+	<g transform="translate( 0, 240 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.elastic</text>
+	</g>
+
+	<g transform="translate( 0, 280 )">
+		<rect x="0"  y="0" width="500" height="40"></rect>
+		<rect x="50" y="0" width="400" height="40"></rect>
+		<circle cx="70" cy="20" r="20"></circle>
+		<text x="250" y="25" text-anchor="middle">mina.bounce</text>
+	</g>
+
+</svg>
+
+
+
+<script src="snap.svg.js"></script>
+<script>
+var $root = Snap( 'svg' );
+var $set = ( $root.selectAll( 'circle' ) );
+
+function play () {
+
+  $set.forEach( function ( $el ) {
+
+    $el.stop();
+
+  } );
+
+  $set.attr( { cx: 70 } );
+  $set.animate(
+    [ { cx: 430 }, 2000, mina.linear    ],
+    [ { cx: 430 }, 2000, mina.easein    ],
+    [ { cx: 430 }, 2000, mina.easeout   ],
+    [ { cx: 430 }, 2000, mina.easeinout ],
+    [ { cx: 430 }, 2000, mina.backin    ],
+    [ { cx: 430 }, 2000, mina.backout   ],
+    [ { cx: 430 }, 2000, mina.elastic   ],
+    [ { cx: 430 }, 2000, mina.bounce    ]
+  );
+
+}
+
+</script>
+</body>
+</html>
