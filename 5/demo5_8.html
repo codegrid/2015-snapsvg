@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+<style>
+@import url(http://fonts.googleapis.com/css?family=Poiret+One);
+
+body{
+  color: #fff;
+  font-family: 'Poiret One', sans-serif;
+  background-color: #D9DEFA;
+}
+
+</style>
+</head>
+<body>
+
+<svg class="graph" width="800" height="480" viewBox="0 0 800 480"></svg>
+
+
+<script src="snap.svg_dev.js"></script>
+<script src="underscore-min.js"></script>
+<script>
+//
+// snapsvg にも簡単なテンプレート構文をサポートしているが機能はかなり少ない 
+//
+
+var graph = Snap( '.graph' );
+
+var data = {
+  cellOffset: { x: 100, y: 30 },
+  cellSize: { width: 150, height: 60 },
+  cellLength: { x: 5, y: 7 },
+  label: {
+    x: [ '2011', '2012', '2013', '2014', '2015' ],
+    y: [ '0', '', '5', '', '10', '', '15' ]
+  },
+  points: [ 10, 9, 5, 7.5, 8 ]
+}
+
+var template = _.template( [
+  '<% var gridBottom = ( data.cellLength.y - 1 ) * data.cellSize.height + data.cellOffset.y; %>',
+  '<g class="grid">',
+    // grid holizontal
+    '<% for ( var i = 0, l = data.cellLength.y; i < l; i ++ ) { %>',
+      '<% var x1 = data.cellOffset.x - 20; %>',
+      '<% var y1 = data.cellOffset.y + data.cellSize.height * i; %>',
+      '<% var x2 = data.cellOffset.x + data.cellSize.width * ( data.cellLength.x - 1 ); %>',
+      '<% var y2 = y1; %>',
+      '<line x1="<%= x1 %>" y1="<%= y1 %>" x2="<%= x2 %>" y2="<%= y2 %>" stroke="#ffffff" stroke-dasharray="6, 6" stroke-width="2"/>',
+      '<text x="<%= x1 - 10 %>" y="<%= y1 %>" font-size="16" text-anchor="end" dy="8">',
+        '<%= data.label.y[ data.cellLength.y - i - 1 ] %>',
+      '</text>',
+    '<% } %>',
+    // grid vertical
+    '<% for ( var i = 0, l = data.cellLength.x; i < l; i ++ ) { %>',
+      '<% var x1 = data.cellOffset.x + data.cellSize.width * i; %>',
+      '<% var y1 = data.cellOffset.y; %>',
+      '<% var x2 = x1; %>',
+      '<% var y2 = data.cellOffset.y + 20 + data.cellSize.height * ( data.cellLength.y - 1 ); %>',
+      '<line x1="<%= x1 %>" y1="<%= y1 %>" x2="<%= x2 %>" y2="<%= y2 %>" stroke="#ffffff" stroke-dasharray="6, 6" stroke-width="2"/>',
+      '<text x="<%= x1 %>" y="<%= y2 + 10 %>" font-size="16" text-anchor="middle" dy="16">',
+        '<%= data.label.x[ i ] %>',
+      '</text>',
+    '<% } %>',
+  '</g>',
+
+  // 折れ線グラフ
+  '<%',
+    'var polygonData1 = [',
+      '[',
+        '( data.cellOffset.x + data.cellSize.width * ( data.cellLength.x - 1 ) ),',
+        '( data.cellOffset.y + data.cellSize.height * ( data.cellLength.y - 1 ) )',
+      '],[',
+        'data.cellOffset.x,',
+        '( data.cellOffset.y + data.cellSize.height * ( data.cellLength.y - 1 ) )',
+      ']',
+    '];',
+    'var polygonData2 = _.clone( polygonData1 );',
+    'for ( var i = 0; i < data.points.length; i ++ ) {',
+      'var cx = data.cellOffset.x + data.cellSize.width * i;',
+      'var cy = gridBottom - ( data.points[ i ] * data.cellSize.height / 2.5 );',
+      'polygonData1.push( [ cx, cy ] );',
+      'polygonData2.push( [ cx, gridBottom ] );',
+    '}',
+  '%>',
+  '<polygon class="surface" points="<%= polygonData1.join( \' \' ) %>" data-points1="<%= polygonData1.join( \' \' ) %>" data-points2="<%= polygonData2.join( \' \' ) %>" fill="#54ACD2" fill-opacity=".5"/>',
+
+  // 折れ線グラフ上のポイント
+  '<% for ( var i = 0; i < data.points.length; i ++ ) { %>',
+    '<%',
+      'var cx = data.cellOffset.x + data.cellSize.width * i;',
+      'var cy = gridBottom - ( data.points[ i ] * data.cellSize.height / 2.5 );',
+    '%>',
+    '<g class="point" transform="translate( <%= cx %>, <%= cy %> )" data-cx1="<%= cx %>" data-cy1="<%= cy %>" data-cx2="<%= cx %>" data-cy2="<%= gridBottom %>" >',
+      '<circle r="6" fill="rgba( 0, 0, 0, .8 )" stroke="white" stroke-width="3"/>',
+      '<circle r="50" fill="transparent" style="cursor:pointer"/>',
+      '<g class="dataLabel" transform="translate( 0, -70 )" opacity="0">',
+        '<rect x="-75" y="-10" rx="4" ry="4" width="150" height="60" fill="#333"/>',
+        '<text x="0" y="0" fill="#fff" font-size="16" text-anchor="middle" dy="16"><%= data.points[ i ] %></text>',
+        '<text x="0" y="18" fill="#fff" font-size="16" text-anchor="middle" dy="16">updates</text>',
+      '</g>',
+    '</g>',
+
+  '<% } %>',
+  
+].join( '\n' ) );
+
+
+
+var svgSource = template( { data: data } );
+var svgDOM = Snap.parse( svgSource );
+graph.append( svgDOM );
+
+
+var point  = graph.selectAll( '.point' );
+var points  = graph.selectAll( '.points' );
+var surface = graph.select( '.surface' );
+
+_.each( point, function ( el ) {
+
+  var mat1 = new Snap.Matrix();
+  var mat2 = new Snap.Matrix();
+  mat1.translate( +el.attr( 'data-cx1' ), +el.attr( 'data-cy1' ) );
+  mat2.translate( +el.attr( 'data-cx2' ), +el.attr( 'data-cy2' ) );
+
+  el.attr( { 'transform': mat2.toTransformString() } );
+  el.animate( { 'transform': mat1 }, 1000, mina.bounce );
+
+} );
+
+surface.attr( { 'points': surface.attr( 'data-points2' ) } );
+surface.animate( { 'points': surface.attr( 'data-points1' ) }, 1000, mina.bounce );
+
+// point
+// dataLabel
+
+_.each( point, function ( el ) {
+
+  var point = el.select( 'circle' );
+  var dataLabel = el.select( '.dataLabel' );
+
+  el.mouseover( function () {
+
+    point.stop().animate( { 'r': 8 }, 200, mina.easein );
+    dataLabel.stop().animate( { 'opacity': 1 }, 1000, mina.easein );
+
+  } );
+
+  el.mouseout( function () {
+
+    point.stop().animate( { 'r': 6 }, 200, mina.easein );
+    dataLabel.stop().animate( { 'opacity': 0 }, 200, mina.easein );
+
+  } );
+
+} );
+
+</script>
+
+</body>
+</html>

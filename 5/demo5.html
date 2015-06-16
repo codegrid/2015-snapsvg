@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<svg width="500" height="100">
+	<circle cx="0" cy="50" r="20" class="circle1"></circle>
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var $circle = Snap( '.circle1' );
+
+function anim () {
+
+  // cx の値を 0 にリセット
+  $circle.attr( { cx: 0 } );
+
+  // cx の値を 3 秒かけて 500 にアニメーションする
+  $circle.animate( {
+    cx: 500
+  }, 3000, function () {
+    anim();
+  } );
+
+};
+
+anim();
+</script>
+
+</body>
+</html>

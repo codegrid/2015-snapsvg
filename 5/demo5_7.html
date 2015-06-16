@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<svg width="256" height="256" id="placeholder">
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var svgSource = '<circle cx="100" cy="100" r="60"></circle>';
+
+var $placeholder = Snap( '#placeholder' );
+var $content = Snap.parse( svgSource );
+
+$placeholder.append( $content );
+
+</script>
+
+</body>
+</html>
