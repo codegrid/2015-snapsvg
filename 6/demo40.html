@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<button onclick="fire()">イベント:group.subGroupを発火させる</button>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+eve.on( 'group',                       function () { alert( 1 ); } );
+eve.on( 'group.subGroup',              function () { alert( 2 ); } );
+eve.on( 'group.subGroup.specificName', function () { alert( 3 ); } );
+
+var fire = function () {
+
+  eve( 'group.subGroup' );
+
+}
+
+</script>
+
+</body>
+</html>

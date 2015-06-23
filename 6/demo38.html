@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div id="log">_</div>
+<svg width="300" height="300">
+  <defs>
+  <style>
+  rect{ fill: #FFF3E0; }
+  circle{ cursor: pointer; }
+  text { fill: #5D4037; font-family: sans-serif; }
+  </style>
+  </defs>
+
+  <rect x="0"  y="0" width="300" height="300"></rect>
+  <circle cx="50" cy="50" r="25" fill="#AEEA00"></circle>
+
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var div = document.getElementById( 'log' );
+var $circle = Snap( 'circle' );
+var isFirefox = ( /Firefox/i.test( navigator.userAgent ) );
+var onMouseWhell = function ( event ) {
+
+  event.preventDefault();
+  var wheelDelta = event.detail ? event.detail * ( -120 ) : event.wheelDelta;
+  div.innerHTML = wheelDelta;
+
+}
+
+if ( isFirefox ) {
+
+  $circle.node.addEventListener( 'DOMMouseScroll', onMouseWhell );
+
+} else {
+
+  $circle.node.addEventListener( 'mousewheel', onMouseWhell );
+
+}
+
+</script>
+
+</body>
+</html>

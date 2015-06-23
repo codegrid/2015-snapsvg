@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<div id="log">_</div>
+<svg width="300" height="300">
+  <defs>
+  <style>
+  rect{ fill: #FFF3E0; }
+  circle{ cursor: pointer; }
+  text { fill: #5D4037; font-family: sans-serif; }
+  </style>
+  </defs>
+
+  <rect x="0"  y="0" width="300" height="300"></rect>
+  <circle cx="50" cy="50" r="25" fill="#AEEA00"></circle>
+
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var div = document.getElementById( 'log' );
+var $circle = Snap( 'circle' );
+var elapsed = 0; //経過時間
+
+setInterval( function () {
+  
+  elapsed += 1000;
+
+  // 第一引数: カスタムイベント名
+  // 第二引数: リスナーの中でthisとして扱うオブジェクト
+  // 第三以降の引数: リスナーの引数に渡したい値
+  eve( 'every1000', $circle, elapsed );
+
+}, 3000 );
+
+
+
+eve.on( 'every1000', function ( message ) {
+  
+  var randomColor = '#' + ( ( Math.random() * 0xFFFFFF )|0 ).toString( 16 );
+  
+  // カスタムイベント作成時に
+  // thisとしてあつかうオブジェクトを$circleで指定している
+  this.attr( { fill: randomColor } );
+
+  // リスナーの中で受け取れる引数を指定している場合は、それを利用できる
+  div.innerHTML = '経過時間(ms): ' + message;
+
+} );
+
+
+</script>
+
+</body>
+</html>

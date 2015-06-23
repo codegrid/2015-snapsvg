@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+<div id="log">_</div>
+<svg width="300" height="300">
+  <defs>
+  <style>
+  rect{ fill: #FFF3E0; }
+  circle{ cursor: pointer; }
+  text { fill: #5D4037; font-family: sans-serif; }
+  </style>
+  </defs>
+
+  <rect x="0"  y="0" width="300" height="300"></rect>
+  <circle cx="50" cy="50" r="25" fill="#AEEA00"></circle>
+
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var div = document.getElementById( 'log' );
+var $circle = Snap( 'circle' );
+
+// ドラッグ終了時に自動でイベントリスナーが削除されるため、
+// 毎回付与する必要がある
+// eveはSnapとは別のライブラリーであるが、
+// Snap.svg本体に同梱されているので新たにJSファイルを読み込む必要はない
+var customDragInit = function () {
+
+  eve.on( 'snap.drag.start.' + $circle.id, function ( x, y, event ) {
+    div.innerHTML = 'dragStart: x:' + x + 'y:' + y;
+    this.attr( { fill: 'red' } );
+  } );
+
+  eve.on( 'snap.drag.move.' + $circle.id, function ( dx, dy, x, y, event ) {
+    div.innerHTML = 'dragging : x:' + x + 'y:' + y;
+    this.attr( { opacity: 0.5 } );
+  } );
+
+  eve.on( 'snap.drag.end.' + $circle.id, function ( event ) {
+    div.innerHTML = 'dragEnd  :' + event;
+    this.attr( { fill: '#AEEA00', opacity: 1 } );
+  } );
+
+}
+
+$circle.mousedown( customDragInit );
+// Snap.svgの内部ではdrag開始を検知するためにmousedownが使われているため
+// `snap.drag.start`を発火させるためには
+// `drag()`よりも先にイベントヲリスンさせておく必要がある
+$circle.drag();
+
+</script>
+
+</body>
+</html>

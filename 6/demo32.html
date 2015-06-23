@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>=^.^=</title>
+</head>
+<body>
+
+<div><button onclick="reset()">リセット</button></div>
+
+<svg width="300" height="300">
+  <defs>
+  <style>
+  g:nth-child( 2n + 1 ) rect:nth-child( 1 ) { fill: #FFCC80; }
+  g:nth-child( 2n + 1 ) rect:nth-child( 2 ) { fill: #3E2723; }
+  g:nth-child( 2n + 2 ) rect:nth-child( 1 ) { fill: #FFF3E0; }
+  g:nth-child( 2n + 2 ) rect:nth-child( 2 ) { fill: #5D4037; }
+  circle{ cursor: pointer; }
+  text { fill: #5D4037; font-family: sans-serif; }
+  </style>
+  </defs>
+
+  <g transform="translate( 0, 0 )" id="click">
+    <rect x="0"  y="0" width="300" height="100"></rect>
+    <circle cx="50" cy="50" r="25" fill="#AEEA00"></circle>
+    <text x="280" y="50" dy="0.5em" text-anchor="end">クリック</text>
+  </g>
+
+</svg>
+
+<script src="snap.svg-min.js"></script>
+<script>
+
+var $circle1 = Snap( '#click circle' );
+
+$circle1.click( function ( event, x, y ) {
+
+  this.attr( { fill: 'red' } );
+  
+} );
+
+
+$circle1.click( function ( event, x, y ) {
+
+  this.attr( { cx: 100 } );
+  
+} );
+
+
+function reset () {
+
+  Snap( 'svg' ).selectAll( 'circle' ).attr( { fill: '#AEEA00' } );
+
+}
+
+</script>
+
+</body>
+</html>
