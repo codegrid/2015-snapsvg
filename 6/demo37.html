@@ -52,7 +52,7 @@ var customDragInit = function () {
 $circle.mousedown( customDragInit );
 // Snap.svgの内部ではdrag開始を検知するためにmousedownが使われているため
 // `snap.drag.start`を発火させるためには
-// `drag()`よりも先にイベントヲリスンさせておく必要がある
+// `drag()`よりも先にイベントを監視させておく必要がある
 $circle.drag();
 
 </script>
