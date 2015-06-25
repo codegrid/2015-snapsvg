@@ -31,25 +31,26 @@
 <script src="snap.svg-min.js"></script>
 <script>
 
-var $circle1 = Snap( '#click circle' );
+var $circle = Snap( '#click circle' );
 
-$circle1.click( function ( event, x, y ) {
+$circle.click( function ( event, x, y ) {
 
   this.attr( { fill: 'red' } );
   
 } );
 
-
-$circle1.click( function ( event, x, y ) {
+$circle.click( function ( event, x, y ) {
 
   this.attr( { cx: 100 } );
   
 } );
 
-
 function reset () {
 
-  Snap( 'svg' ).selectAll( 'circle' ).attr( { fill: '#AEEA00' } );
+  $circle.attr( {
+    fill: '#AEEA00',
+    cx: 50
+  } );
 
 }
 

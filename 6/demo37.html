@@ -28,7 +28,7 @@ var $circle = Snap( 'circle' );
 
 // ドラッグ終了時に自動でイベントリスナーが削除されるため、
 // 毎回付与する必要がある
-// eveはSnapとは別のライブラリーであるが、
+// eveはSnapとは別のライブラリであるが、
 // Snap.svg本体に同梱されているので新たにJSファイルを読み込む必要はない
 var customDragInit = function () {
 
@@ -43,7 +43,7 @@ var customDragInit = function () {
   } );
 
   eve.on( 'snap.drag.end.' + $circle.id, function ( event ) {
-    div.innerHTML = 'dragEnd  :' + event;
+    div.innerHTML = 'dragEnd';
     this.attr( { fill: '#AEEA00', opacity: 1 } );
   } );
 

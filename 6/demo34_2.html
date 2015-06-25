@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<svg width="100" height="100">
+<div><button onclick="removeEve()">イベント削除</button></div>
+
+<svg width="300" height="300">
   <defs>
   <style>
   rect{ fill: #FFF3E0; }
@@ -23,20 +25,25 @@
 <script src="snap.svg-min.js"></script>
 <script>
 
-var div = document.getElementById( 'log' );
 var $circle = Snap( 'circle' );
+var onOver = function ( event, x, y ) {
 
-$circle.click( function () {
-  
-  eve( 'customClick', $circle );
+  this.attr( { fill: 'red' } );
 
-} );
+}
+var onOut = function ( event, x, y ) {
 
+  this.attr( { fill: '#AEEA00' } );
 
-eve.on( 'customClick', function () { alert( 1 ); } );
-eve.on( 'customClick', function () { alert( 2 ); eve.stop(); } );
-eve.on( 'customClick', function () { alert( 3 ); } );
+}
 
+$circle.hover( onOver, onOut );
+
+function removeEve () {
+
+  $circle.unhover( onOver, onOut );
+
+}
 
 </script>
 

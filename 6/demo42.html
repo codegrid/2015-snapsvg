@@ -32,10 +32,19 @@ $circle.click( function () {
 
 } );
 
-
 eve.on( 'customClick', function () { alert( 1 ); } );
-eve.on( 'customClick', function () { alert( 2 ); eve.stop(); } );
-eve.on( 'customClick', function () { alert( 3 ); } );
+eve.on( 'customClick', function () { alert( 2 ); } );
+
+// preventDefault() に近い感覚で利用可能
+// on が返す関数の引数 (ここでは`( -1 )`を指定した部分 ） に
+// 割り込み場所を指定できる。
+// -1番目、つまり先の2つ (0番目と1番目) より先にイベントが挿入され
+// それ以降をキャンセルすることができる。
+// もちろん、挿入先は -1 以外でも可能。
+eve.on( 'customClick', function () {
+  eve.stop();
+  alert( 'イベント' );
+} )( -1 );
 
 
 </script>
